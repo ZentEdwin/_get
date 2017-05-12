@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>click demo</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<input type="text" id="trad2" name="tradu2" list="seg">
+<label>Traduccion:</label>
+  <datalist id="seg"> 
+    <option>es</option> 
+    <option>en</option> 
+    </datalist>
+
+
+<input type="text" id="trad1" name="tradu1" list="colors">
+<label>Texto:</label>
+  <datalist id="colors"> 
+    <option>es</option> 
+    <option>en</option>
+    </datalist>
+
+<textarea id="caja" placeholder="Ej. Hola" type="text" name="ingresado"></textarea> 
+<p id="resultado"></p>
+<button class="btn info" id="slide">Traduccion</button> 
+
+ 
+            <script>
+              $( "#slide" ).click(function(event) {
+                event.preventDefault();
+                $.post("http://localhost/curl.php", {ingresado: $('#caja').val(), tradu1: $('#trad1').val(), tradu2: $('#trad2').val()}, function(respuesta){
+                      console.log(respuesta);
+                      var trans2 = respuesta.substr(10);
+                      var trans = trans2.replace(/;/, "");
+                      document.getElementById('resultado').innerHTML = trans
+                    });
+              });
+            </script>
+ 
+</body>
+</html>
